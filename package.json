@@ -1,0 +1,9 @@
+{
+  "name": "agent-skills",
+  "version": "1.0.0",
+  "description": "A marketplace of skills for writing agent-readable documents and instructions",
+  "keywords": ["pi-package"],
+  "pi": {
+    "skills": ["./skills"]
+  }
+}
