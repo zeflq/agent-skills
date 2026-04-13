@@ -1,7 +1,14 @@
+---
+description: Per-section interview prompts and XML examples for AGENTS.md — load during the interview to get the example for each section.
+---
+
 # Per-Section Examples — agents-md
 
-For each section: show the example, then ask the user to adapt it or confirm.
-Apply techniques from the bottom of this file when writing any section.
+For each section:
+1. Ask the user the plain-text question under "Ask:"
+2. Use the XML block as the schema — what fields this section needs
+3. Apply `<constraints>` from `references/techniques.md` to the content (imperative language, section length, etc.)
+4. Write the output
 
 ## Table of Contents
 - [Section 1 — Project Scope](#section-1)
@@ -216,8 +223,3 @@ Only include if multiple specialized agents share the codebase.
 </roles>
 ```
 
----
-
-## Techniques
-
-Apply these when writing any section. Load `references/techniques.md` for the full reference — apply each technique whose `<when>` condition matches the current context.

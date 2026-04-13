@@ -5,31 +5,35 @@ description: "Guided creation and update of AGENTS.md — the unified project in
 
 # agents-md Skill
 
-Read `references/sections.md` for per-section interview prompts and XML examples.
-Read `references/template.md` for the full AGENTS.md template.
+This skill produces a **fixed 10-section AGENTS.md** — an opinionated best-practice structure. Sections 1–7 are required, 8–10 are recommended. It does not discover sections from the project; use `agent-doc` for freeform agent documents.
+
+Read `references/sections.md` for per-section interview prompts and XML output templates — ask the user the plain-text question, then write the XML from their answer.
 Read `references/techniques.md` when writing any section — apply each technique whose `<when>` condition matches the current context.
 Read `references/writing-guide.md` only if the user asks about maintenance, token budget, or file organization.
 
 ## Context Detection (before interview)
 
-Only use context the user has explicitly provided — a project description, pasted config, file content, or a request to scan/load the project. Do not scan the filesystem unprompted.
+Never scan the filesystem unprompted.
 
-If the user provides context: auto-fill sections derivable from it, skip those in the interview.
-If the user provides nothing: run the full interview.
+IF user provides context (project description, pasted config, file content, or scan request):
+- Auto-fill sections derivable from it
+- Skip those sections in the interview
+
+ELSE (user provides nothing):
+- Run the full interview
 
 ## Mode Detection
 
 Determine the mode before doing anything else:
 
-**User said "update", "edit", "modify", "fix", gave a file path, or pasted file content?**
-→ Go to **UPDATE workflow**
+| User said | Action |
+|---|---|
+| "update", "edit", "modify", "fix" / gave a file path / pasted file content | → **UPDATE workflow** |
+| "create", "generate", "write", "new" / gave no file | → **CREATE workflow** |
 
-**User said "create", "generate", "write", "new", or gave no file?**
-→ Go to **CREATE workflow**
-
-**Unsure?** Check if `AGENTS.md` or `CLAUDE.md` exists at the project root (not the skill directory).
-- Exists → UPDATE workflow
-- Does not exist → CREATE workflow
+IF unsure:
+- `AGENTS.md` or `CLAUDE.md` exists at the project root → **UPDATE workflow**
+- Does not exist → **CREATE workflow**
 
 ---
 
@@ -55,7 +59,6 @@ Walk sections 1–7 (required), then 8–10 (recommended). Write to `./AGENTS.md
 ## Interview Rules
 
 - One section at a time. Never bundle multiple sections in one message.
-- For each section: show the proposed example from `references/sections.md`, then ask the user to adapt it or confirm.
 - If the user gives insufficient info: ask one focused follow-up with a concrete example.
 - If the user says **"skip"** or **"not needed"**: include the section as an XML comment block.
 - Sections 1–7 are required. Sections 8–10 are recommended.
@@ -77,6 +80,5 @@ Walk sections 1–7 (required), then 8–10 (recommended). Write to `./AGENTS.md
 
 ## Output
 
-Write the completed file to `./AGENTS.md` in the working directory root.
-
-After writing, confirm: *"AGENTS.md written — Sections filled: [list]. Skipped: [list]."*
+1. Write the completed file to `./AGENTS.md` in the working directory root
+2. Confirm: *"AGENTS.md written — Sections filled: [list]. Skipped: [list]."*
