@@ -104,9 +104,11 @@ If insufficient: "For example — what naming convention? Any banned patterns? R
     <constants>SCREAMING_SNAKE_CASE</constants>
   </naming>
   <rules>
+    <!-- hard constraints first -->
     <rule>No default exports — named exports only</rule>
     <rule>No `any` type — use `unknown` and narrow</rule>
     <rule>Absolute imports via @/ alias — no ../.. chains</rule>
+    <!-- soft preferences after -->
     <rule>Reuse existing utilities before creating new ones — search first</rule>
     <rule>No inline styles — Tailwind classes only</rule>
   </rules>

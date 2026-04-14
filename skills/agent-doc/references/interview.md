@@ -1,20 +1,41 @@
+---
+description: Ordered interview workflow for discovering document scope, sections, and section-level writing techniques before drafting.
+---
+
 # Discovery Interview — agent-doc
 
-Use these questions to discover what document to build and what sections it needs.
-Ask in order. Stop as soon as you have enough to propose a section structure.
+<workflow>
+  <step number="1" name="Ask discovery questions">
+    <action>Ask all four questions in one message.</action>
+    <action>Capture answers as draft inputs for scope, audience, decisions, and load trigger.</action>
+    <example>
+      1. What is this document for?
+      2. Who reads it, and in what context?
+      3. What decisions should the reader make differently after reading it?
+      4. In one sentence, when should an agent load this file?
+    </example>
+  </step>
 
-## Step 1 — Four Discovery Questions
+  <step number="2" name="Decide if scope is sufficient">
+    <if>IF scope, audience, and decision intent are clear, continue to Step 3.</if>
+    <else>ELSE ask only the minimum follow-up questions required to remove ambiguity, then continue to Step 3.</else>
+    <rule>Never ask for information already provided by the user.</rule>
+  </step>
 
-Ask all four in one message (exception to the one-at-a-time rule — these are scoping questions):
+  <step number="3" name="Propose section structure">
+    <action>Propose sections and assign one writing technique per section from references/techniques.md.</action>
+    <action>Ask the user to confirm, add, or remove sections before drafting content.</action>
+    <example>"Proposed sections: steps (strict sequential workflow), rules (XML tags), verification (self-verification loop). Keep or edit?"</example>
+  </step>
 
-1. **What is this document for?** — What does it describe or govern?
-2. **Who reads it?** — Who or what will load this file, and in what context?
-3. **What decisions does it guide?** — What should the reader know or do differently after reading it?
-4. **In one sentence, when should an agent load this file?** — This becomes the `description:` frontmatter.
+  <step number="4" name="Interview section by section">
+    <action>Handle one confirmed section at a time.</action>
+    <action>Show one filled example in the selected technique format, then ask the user to adapt or replace it.</action>
+    <rule>Never draft a later section before the current section is confirmed.</rule>
+  </step>
+</workflow>
 
-## Step 2 — Propose a Section Structure
-
-Based on the answers, propose a section list with the technique each section will use. Use the mapping below as a starting point.
+<section-template-map>
 
 | Document type | Suggested sections (XML tag names) |
 |---|---|
@@ -26,23 +47,26 @@ Based on the answers, propose a section list with the technique each section wil
 | Deployment guide | `<environments>`, `<steps>`, `<verification>`, `<rollback>` |
 | Generic rules doc | `<allowed-scope>`, `<rules>`, `<exceptions>`, `<verification>` |
 
-For each proposed section, select the technique based on its `<when>` condition in `references/techniques.md`.
+</section-template-map>
 
-Example proposal:
-> *"Here's the structure I'd suggest:*
-> - **steps** — strict sequential workflow → numbered `<step>` elements inside `<steps>`
-> - **error-handling** — table for mappings → markdown table (status → action), no XML wrapper
-> - **rules** — XML tags → `<rule>` elements inside `<rules>`
->
-> Does this match what you need? Any sections to add or remove?"*
+<constraint-ordering>
+  <rule>Apply constraints before guidelines inside every section.</rule>
+  <rule>Place hard constraints first: security, correctness, data integrity, absolute prohibitions.</rule>
+  <rule>Place soft guidelines after hard constraints: style, convention, performance preferences.</rule>
+  <rule>Never interleave hard and soft rules.</rule>
+  <example>
+    <rules>
+      <rule><requirement>Never return HTTP 200 with an error body.</requirement></rule>
+      <rule><requirement>Never omit request_id in any response.</requirement></rule>
+      <rule><requirement>Use camelCase for JSON keys.</requirement></rule>
+      <rule><requirement>Keep response payloads under 1MB.</requirement></rule>
+    </rules>
+  </example>
+</constraint-ordering>
 
-## Step 3 — Interview Per Section
-
-For each confirmed section:
-- Use the technique selected for it in Step 2
-- Show a concrete example using that technique
-- Ask the user to adapt it or provide their own content
-
-## Constraints — enforce throughout the interview
-
-Apply the constraints defined in `references/techniques.md` as content grows — do not wait until the end.
+<self-check>
+  <check>All four discovery questions were asked before section drafting.</check>
+  <check>Each proposed section has exactly one selected technique.</check>
+  <check>Every drafted section includes a concrete example.</check>
+  <check>Hard constraints appear before soft guidelines in mixed sections.</check>
+</self-check>
