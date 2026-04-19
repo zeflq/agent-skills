@@ -1,12 +1,13 @@
 ---
 name: agent-doc
-description: "Write any agent-readable document — instructions, architecture guides, runbooks, API contracts, style guides, or any .md file an agent will read as context. Use when a user needs to create a structured document that an AI agent will consume: frontend architecture doc, deployment runbook, database schema guide, API usage rules, etc. Interviews the user to discover sections, applies agent-optimized techniques, adds description frontmatter, and writes the file."
+description: "Write or update any agent-readable document — instructions, architecture guides, runbooks, API contracts, style guides, or any .md file an agent will read as context. Use when a user needs to create, update, edit, or improve a structured document that an AI agent will consume: frontend architecture doc, deployment runbook, database schema guide, API usage rules, etc. Interviews the user to discover sections, applies agent-optimized techniques, adds description frontmatter, and writes the file."
 ---
 
 # agent-doc Skill
 
 Read `references/interview.md` for how to discover sections for any document type.
 Read `references/techniques.md` when writing any section — apply each technique whose `<when>` condition matches the current context.
+Read `references/writing-guide.md` when writing any document — apply token budget and split rules.
 ## Context Detection (before interview)
 
 Never scan the filesystem unprompted.

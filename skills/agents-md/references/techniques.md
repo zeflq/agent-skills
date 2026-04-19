@@ -77,4 +77,8 @@ They are the source of truth — copied into each skill's references/ for self-c
     <name>Allowlist over denylist</name>
     <rule>Any section that grants permissions must use an explicit allowed list. Anything not listed is off-limits by default. Never use a deny list as the primary access control.</rule>
   </constraint>
+  <constraint>
+    <name>No duplication</name>
+    <rule>Every rule or content block must live in exactly one place. If the same content appears in both a root file and a linked file, remove it from one. Never copy rules across files — reference the file that owns them instead. If user-provided content contains duplicate rules or repeated blocks, consolidate before writing — never preserve duplication from the input.</rule>
+  </constraint>
 </constraints>

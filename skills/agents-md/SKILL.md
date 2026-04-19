@@ -9,7 +9,7 @@ This skill produces a **fixed 10-section AGENTS.md** — an opinionated best-pra
 
 Read `references/sections.md` for per-section interview prompts and XML output templates — ask the user the plain-text question, then write the XML from their answer.
 Read `references/techniques.md` when writing any section — apply each technique whose `<when>` condition matches the current context.
-Read `references/writing-guide.md` only if the user asks about maintenance, token budget, or file organization.
+Read `references/writing-guide.md` when writing any AGENTS.md — apply token budget and split rules.
 
 ## Context Detection (before interview)
 
@@ -67,45 +67,13 @@ Walk sections 1–7 (required), then 8–10 (recommended). Write to `./AGENTS.md
 
 ## Interview Rules
 
-<!-- hard constraints first -->
 - Never bundle multiple sections in one message.
 - Never leave soft language in any rule — apply imperative rewrites before writing.
-
-<!-- soft workflow rules after -->
 - If the user gives insufficient info: ask one focused follow-up with a concrete example.
 - If the user says **"skip"** or **"not needed"**: include the section as an XML comment block.
 - Sections 1–7 are required. Sections 8–10 are recommended.
 
-### Constraints before guidelines — enforce within every section
-
-Before writing any section, classify every item:
-- **Hard** — contains `never`, or breaking it causes a security, correctness, or data-integrity failure
-- **Soft** — everything else: style, performance, convention, "include X", "use X", "keep X under Y"
-
-Write hard items first, soft items after. Never follow input order if it mixes both.
-
-IF a section mixes both:
-1. Reorder — hard rules first, soft rules after — never follow the input's original order
-2. Never split into sub-sections to avoid reordering — keep them in one block
-3. Never interleave — all hard rules contiguous, then all soft rules contiguous
-
-Correct:
-```xml
-<rules>
-  <!-- hard constraints first -->
-  <rule>No `any` type — use `unknown` and narrow.</rule>
-  <!-- soft preferences after -->
-  <rule>Reuse existing utilities before creating new ones.</rule>
-</rules>
-```
-
-Forbidden:
-```xml
-<rules>
-  <hard-constraints><rule>No `any` type — use `unknown` and narrow.</rule></hard-constraints>
-  <guidelines><rule>Reuse existing utilities before creating new ones.</rule></guidelines>
-</rules>
-```
+Apply the "Constraints before guidelines" technique from `references/techniques.md` in every section — never split into sub-sections to separate hard from soft rules.
 
 ## Section Order
 

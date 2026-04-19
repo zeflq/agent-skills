@@ -1,23 +1,23 @@
 ---
-description: Load when writing or updating any AGENTS.md. Covers token budget, split rules, and maintenance.
+description: Load when writing or updating any agent-readable document. Covers token budget, split rules, and maintenance.
 ---
 
-# AGENTS.md Writing Guide
+# Agent Document Writing Guide
 
-Load when writing any AGENTS.md — apply token budget and split rules. The Staleness Check section applies to maintenance only.
+Load when writing any document — apply token budget and split rules. The Staleness Check section applies to maintenance only.
 
 ## Token Budget
 
 | Level | Max |
 |---|---|
-| Root AGENTS.md | 80–120 lines |
+| Root agent doc | 80–120 lines |
 | Per section | 10–15 lines |
 | Total across all linked files | 300 lines |
 
 | Action | What |
 |---|---|
 | Cut | Explanatory prose, redundant examples, speculative rules, empty XML blocks |
-| Keep | Permissions model, hard constraints, workflow steps, verification checklist |
+| Keep | Hard constraints, workflow steps, verification checklist, permissions model |
 
 ## When to Split Into Linked Files
 
@@ -25,8 +25,8 @@ Load when writing any AGENTS.md — apply token budget and split rules. The Stal
   <rule>Every linked file must have a <code>description:</code> frontmatter field.</rule>
   <rule>Split a section into a linked file when any condition below is true:
     <conditions>
-      <condition>File exceeds 120 lines</condition>
-      <condition>Section applies to fewer than 30% of tasks (e.g. Agent Roles for a solo project)</condition>
+      <condition>Section exceeds 20 lines</condition>
+      <condition>Section applies to fewer than 30% of tasks</condition>
       <condition>Section changes at a different rate than the rest of the file</condition>
     </conditions>
   </rule>
@@ -34,8 +34,8 @@ Load when writing any AGENTS.md — apply token budget and split rules. The Stal
 
 | Location | Sections |
 |---|---|
-| Root (always loaded) | Hard Constraints, Permissions & Boundaries, Default Workflow |
-| Stub (loaded on demand) | Coding Standards, Tooling & Commands, Output Expectations, Safety Rules, Agent Roles |
+| Root (always loaded) | Hard constraints, permissions and boundaries, default workflow |
+| Stub (loaded on demand) | Detailed reference tables, examples library, rollback procedures, edge-case rules |
 
 ## Multi-File Document Systems
 
@@ -75,11 +75,11 @@ Never add rules speculatively — only after a real failure.
 
 ## Staleness Check
 
-Run on every major refactor:
+Run on every major update to the system the document describes.
 
 | Question | Action if yes |
 |---|---|
-| Are any specific file paths documented? | Replace with capability descriptions |
+| Are any specific file paths hardcoded? | Replace with capability descriptions |
 | Are any rules longer than 3 lines? | Cut to the essential constraint |
 | Has any section gone untouched for 3+ months? | Delete or archive it |
 | Is the file longer than 120 lines? | Apply token budget and trim |
