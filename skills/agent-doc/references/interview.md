@@ -37,7 +37,9 @@ description: Ordered interview workflow for discovering document scope, sections
 
 <section-template-map>
 
-| Document type | Suggested sections (XML tag names) |
+Examples only — not exhaustive. Derive sections from the document's actual purpose and audience.
+
+| Document type | Example sections (XML tag names) |
 |---|---|
 | Architecture / tech guide | `<overview>`, `<stack>`, `<patterns>`, `<anti-patterns>`, `<verification>` |
 | Runbook / workflow | `<prerequisites>`, `<steps>`, `<verification>`, `<rollback>` |

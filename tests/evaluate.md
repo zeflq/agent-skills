@@ -50,3 +50,10 @@ Be strict. Partial compliance counts as FAIL.
 | 08 | description frontmatter | PASS | |
 | 09 | Trigger word tables | PASS | |
 | 10 | If-then logic | PASS | |
+| 11 | No duplication | PASS | Multiple iterations — final fix: pre-write classification rules + blocking verification gate |
+| 12 | Constraints before guidelines — any section name | PASS | |
+| 13 | Strict sequential workflow — any section name | PASS | |
+| 14 | Constraints before guidelines — any section name v2 | PASS | |
+| 15 | Strict sequential workflow — any section name v2 | PASS | |
+| 16 | Multi-file document system | PASS | |
+| 17 | Token budget | PASS | Separate issue: constraints-before-guidelines failed in `<testing>` section — hard rules at positions 3-4 after soft rules |

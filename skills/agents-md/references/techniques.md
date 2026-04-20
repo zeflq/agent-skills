@@ -25,7 +25,7 @@ They are the source of truth — copied into each skill's references/ for self-c
   </technique>
   <technique>
     <name>Constraints before guidelines</name>
-    <application>Within any section, hard rules appear before soft preferences.</application>
+    <application>Within any section, hard rules appear before soft preferences. Hard: contains `never`, requires immediate action ("immediately", "at once", "without delay"), or breaking it causes a security, correctness, or data-integrity failure. Soft: everything else — style, performance, convention.</application>
     <when>Every section that mixes rules and preferences. Order is enforced — never interleave them.</when>
   </technique>
   <technique>
@@ -79,6 +79,12 @@ They are the source of truth — copied into each skill's references/ for self-c
   </constraint>
   <constraint>
     <name>No duplication</name>
-    <rule>Every rule or content block must live in exactly one place. If the same content appears in both a root file and a linked file, remove it from one. Never copy rules across files — reference the file that owns them instead. If user-provided content contains duplicate rules or repeated blocks, consolidate before writing — never preserve duplication from the input.</rule>
+    <rule>Every rule or content block must live in exactly one place. If the same content appears in both a root file and a linked file, remove it from one. Never copy rules across files — reference the file that owns them instead. If user-provided content contains duplicate rules or repeated blocks, consolidate before writing — never preserve duplication from the input. Consolidate by intent, not just exact wording — a rephrased repeat is still a duplicate.</rule>
+    <example>
+      DUPLICATE (different wording, same intent — keep only one):
+        authentication section: "Validate the token before processing any request"
+        error-handling section: "Return 401 when the token is missing or invalid"
+      These govern the same rule (token must be valid). Keep the specific enforcement rule in error-handling, remove the abstract restatement from authentication.
+    </example>
   </constraint>
 </constraints>

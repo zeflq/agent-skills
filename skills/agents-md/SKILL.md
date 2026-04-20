@@ -73,7 +73,17 @@ Walk sections 1–7 (required), then 8–10 (recommended). Write to `./AGENTS.md
 - If the user says **"skip"** or **"not needed"**: include the section as an XML comment block.
 - Sections 1–7 are required. Sections 8–10 are recommended.
 
-Apply the "Constraints before guidelines" technique from `references/techniques.md` in every section — never split into sub-sections to separate hard from soft rules.
+Before writing any section, make two classifications:
+
+**1. Ordered or unordered?**
+IF items must be executed in a specific order → use numbered `<step>` elements.
+ELSE → use `<rule>` elements.
+This applies to any section regardless of its XML tag name.
+
+**2. Hard or soft?**
+Classify every item — see the "Constraints before guidelines" technique in `references/techniques.md`.
+Write hard items first, soft items after. Never follow input order. Never split into sub-sections.
+This applies to any section regardless of its XML tag name.
 
 ## Section Order
 
@@ -97,8 +107,18 @@ Apply the "Constraints before guidelines" technique from `references/techniques.
 
 ## Verification — run before confirming the file is complete
 
+Never confirm the file is complete until every item below passes. If any item fails, rewrite the affected section and re-run the full checklist.
+
 - [ ] Sections 1–7 are all present or have an XML comment explaining why each was skipped
 - [ ] No section has sub-sections to separate hard from soft rules — one flat block only
 - [ ] Hard rules appear before soft rules in every mixed section
 - [ ] Every rule uses imperative language — no "try to", "prefer", "should", "where possible"
+- [ ] Every section where sequence matters applies the strict sequential workflow technique from `references/techniques.md`
+- [ ] Every document containing a workflow or multi-step process ends with a `<self-verification>` checklist
 - [ ] `description:` frontmatter is present in the AGENTS.md file
+- [ ] No rule or content block appears more than once across all sections — consolidate by intent, not just exact wording (a rephrased repeat is still a duplicate)
+- [ ] No meta-comments appear in the output — the document contains only content, never the skill's internal reasoning
+- [ ] No section exceeds 15 lines — if it does, ask the user what to cut before confirming
+- [ ] Root file does not exceed 120 lines — if it does, apply token budget from `references/writing-guide.md`
+- [ ] Any section exceeding 20 lines, applying to fewer than 30% of tasks, or changing at a different rate is split into a linked file
+- [ ] Any permissions section uses an explicit allowlist — nothing permitted by default, no denylists

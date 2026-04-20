@@ -8,6 +8,7 @@ description: "Write or update any agent-readable document — instructions, arch
 Read `references/interview.md` for how to discover sections for any document type.
 Read `references/techniques.md` when writing any section — apply each technique whose `<when>` condition matches the current context.
 Read `references/writing-guide.md` when writing any document — apply token budget and split rules.
+
 ## Context Detection (before interview)
 
 Never scan the filesystem unprompted.
@@ -57,38 +58,37 @@ Run the discovery interview (`references/interview.md`), then write.
 
 ## Section Writing Rules — enforce on every section, regardless of how content was provided
 
-Before writing any section, classify every item:
-- **Hard** — contains `never`, or breaking it causes a security, correctness, or data-integrity failure
-- **Soft** — everything else: style, performance, convention, "include X", "use X", "keep X under Y"
+Before writing any section, make two classifications:
 
-Write hard items first, soft items after. Never follow input order if it mixes both.
+**1. Ordered or unordered?**
+IF items must be executed in a specific order → use numbered `<step>` elements.
+ELSE → use `<rule>` elements.
+This applies to any section, regardless of its XML tag name — `<rollback>`, `<setup>`, `<migration>` follow the same rule as `<steps>`.
 
-IF a section mixes both:
-1. Reorder — hard rules first, soft rules after — never follow the input's original order
-2. Never split into sub-sections (`<hard-constraints>`, `<guidelines>`, or any named wrapper) to separate them — keep all items in one flat block
-3. Never interleave — all hard rules contiguous, then all soft rules contiguous
+**2. Hard or soft?**
+Classify every item — see the "Constraints before guidelines" technique in `references/techniques.md`.
+Write hard items first, soft items after. Never follow input order. Never split into sub-sections.
+This applies to any section, regardless of its XML tag name — `<post-deployment-checks>`, `<prerequisites>`, `<rollback>` follow the same rule as `<rules>`.
 
-For sequential steps: never move a step to a different section to "improve" structure — every item the user listed as a step must appear as a numbered `<step>` in `<steps>`, including conditional ones.
-
-Correct:
+Correct (`<rollback>` is ordered → use steps):
 ```xml
-<rules>
-  <!-- hard constraints first -->
-  <rule><requirement>Never return HTTP 200 with an error body.</requirement></rule>
-  <!-- soft preferences after -->
-  <rule><requirement>Use camelCase for every JSON key.</requirement></rule>
-</rules>
+<rollback>
+  <step number="1"><action>Route traffic back to previous instance.</action></step>
+  <step number="2"><action>Redeploy previous stable image.</action></step>
+</rollback>
 ```
 
-Forbidden:
+Correct (`<post-deployment-checks>` mixes hard and soft → hard first):
 ```xml
-<rules>
-  <hard-constraints><rule>Never return HTTP 200 with an error body.</rule></hard-constraints>
-  <guidelines><rule>Use camelCase for every JSON key.</rule></guidelines>
-</rules>
+<post-deployment-checks>
+  <rule><requirement>Roll back immediately when error rate exceeds 1%.</requirement></rule>
+  <rule><requirement>Monitor error rate for 10 minutes after cutover.</requirement></rule>
+</post-deployment-checks>
 ```
 
 ## Verification — run before confirming the document is complete
+
+Never confirm the document is complete until every item below passes. If any item fails, rewrite the affected section and re-run the full checklist.
 
 - [ ] `description:` frontmatter is present and starts with "Load when" or "Use when"
 - [ ] Every section uses the technique matching its `<when>` condition in `references/techniques.md`
@@ -96,3 +96,11 @@ Forbidden:
 - [ ] Hard rules appear before soft rules in every mixed section
 - [ ] Every rule uses imperative language — no "try to", "prefer", "should", "where possible"
 - [ ] Every rule has a concrete `<example>` — no prose explanations
+- [ ] Every section where sequence matters applies the strict sequential workflow technique from `references/techniques.md`
+- [ ] Every document containing a workflow or multi-step process ends with a `<self-verification>` checklist
+- [ ] No rule or content block appears more than once across all sections — consolidate by intent, not just exact wording (a rephrased repeat is still a duplicate)
+- [ ] No meta-comments appear in the output — the document contains only content, never the skill's internal reasoning
+- [ ] No section exceeds 15 lines — if it does, ask the user what to cut before confirming
+- [ ] Root file does not exceed 120 lines — if it does, apply token budget from `references/writing-guide.md`
+- [ ] Any section exceeding 20 lines, applying to fewer than 30% of tasks, or changing at a different rate is split into a linked file
+- [ ] Any permissions section uses an explicit allowlist — nothing permitted by default, no denylists
